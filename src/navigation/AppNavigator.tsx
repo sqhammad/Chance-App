@@ -10,6 +10,8 @@ import FeedScreen from '../screens/FeedScreen';
 import PostDetailsScreen from '../screens/PostDetailsScreen';
 import InboxScreen from '../screens/InboxScreen';
 import ChatScreen from '../screens/ChatScreen';
+import EventDetails from '../screens/EventDetails';
+import PostDetails from '../screens/PostDetails';
 
 const Stack = createStackNavigator();
 
@@ -18,13 +20,14 @@ const AppNavigator = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Feeds" component={FeedScreen} />
         <Stack.Screen name="Portfolio" component={PortfolioScreen} />
         <Stack.Screen name="ArtistProfile" component={ArtistProfileScreen} />
         <Stack.Screen name="Signup" component={SignupScreen} />
-        <Stack.Screen name="Feeds" component={FeedScreen} />
-        <Stack.Screen name="PostDetails" component={PostDetailsScreen} />
         <Stack.Screen name="Inbox" component={InboxScreen} />
         <Stack.Screen name="Chat" component={ChatScreen} />
+        <Stack.Screen name="EventDetails" component={EventDetails} />
+        <Stack.Screen name="PostDetails" component={PostDetails} />
       </Stack.Navigator>
     </NavigationContainer>
   );
