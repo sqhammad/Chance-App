@@ -1,0 +1,1 @@
+export const imageUrl:string = "../assets/image.jpg";
