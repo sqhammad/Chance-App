@@ -1,10 +1,13 @@
 import React from 'react';
-import { View, StyleSheet, Image, FlatList, Text, Dimensions, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Image, FlatList, Text, Dimensions, TouchableOpacity, ScrollView, StatusBar } from 'react-native';
 import event1 from '../../assets/events/event1.jpg';
 import event2 from '../../assets/events/event2.jpg';
 import event3 from '../../assets/events/event3.jpg';
-import post1 from '../../assets/posts/post1.jpg'
+import post1 from '../../assets/posts/post1.jpg';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
+import { LinearGradient } from 'expo-linear-gradient';
+import { AntDesign, Entypo, FontAwesome, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -69,10 +72,37 @@ const FeedScreen = ({ navigation }) => {
   );
 
   return (
-    <View style={styles.container}>
-      <Carousel data={carouselImages} renderItem={renderEventImage} sliderWidth={screenWidth} itemWidth={screenWidth} layout="default" loop style={{ paddingBottom: 10, backgroundColor: '#fff' }} />
-      <FlatList data={postImages} keyExtractor={(item) => item.id} renderItem={renderPostImage} />
-    </View>
+    <>
+      <StatusBar hidden={false} />
+      <View style={styles.header}>
+        <TouchableOpacity onPress={()=>navigation.navigate('ProfileScreen')}>
+        <MaterialIcons name="account-circle" size={37} color="white" />
+        </TouchableOpacity>
+        <Text style={styles.headerText}>Home</Text>
+        <MaterialCommunityIcons name='message' size={31} color="white" />
+      </View>
+      <LinearGradient
+        colors={['#ffffff', '#00cccc', '#009999']}
+        style={styles.container}
+      >
+        <ScrollView>
+          {/* <Carousel data={carouselImages} renderItem={renderEventImage} sliderWidth={screenWidth}
+            itemWidth={screenWidth} layout="default" loop style={{
+              paddingBottom: 10, backgroundColor: '#fff', marginHorizontal:0
+            }} /> */}
+          <FlatList data={postImages} keyExtractor={(item) => item.id}
+            renderItem={renderPostImage} style={{ marginTop: 10 }} />
+        </ScrollView>
+      </LinearGradient>
+      <View style={styles.bottomNav}>
+        <MaterialIcons name="home" size={37} color="#009999" />
+        <AntDesign name="search1" size={32} color="#009999" />
+        <MaterialIcons name="add-circle" size={37} color="#009999" />
+        <MaterialCommunityIcons name="web" size={35} color="#009999" />
+        <Entypo name="menu" size={38} color="#009999" />
+      </View>
+      {/* </StatusBar> */}
+    </>
   );
 };
 
@@ -80,7 +110,33 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 0,
-    margin: 0
+    margin: 0,
+    // height: screenHeight * 0.9
+  },
+  header: {
+    height: screenHeight * 0.07,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: "#009999",
+    alignContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 15,
+  },
+  headerText: {
+    fontSize: 30,
+    fontWeight: "600",
+    color: "white"
+  },
+  bottomNav: {
+    height: screenHeight * 0.065,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: "#ffffff",
+    alignContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 15,
   },
   postContainer: {
     display: 'flex',
@@ -88,17 +144,21 @@ const styles = StyleSheet.create({
     // padding: 5,
     paddingBottom: 10,
     width: screenWidth * 0.9,
-    borderRadius: 10,
-    backgroundColor: '#fff',
+    // borderRadius: 10,
+    backgroundColor: 'rgba(255,255,255,0.1)',
     alignItems: 'flex-start', // Updated this line
     alignSelf: 'center',
-    marginBottom: 20,
+    marginBottom: 10,
+    paddingTop: 10,
+    borderTopColor: "black",
+    borderTopWidth: 1,
+
   },
   image: {
     display: 'flex',
     width: '100%',
     margin: 10,
-    alignSelf:'center',
+    alignSelf: 'center',
     // borderRadius:10
   },
   artistName: {
