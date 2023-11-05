@@ -73,7 +73,7 @@ const LoginScreen = ({ navigation }) => {
         placeholder='Enter Password'
       />
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={()=>navigation.replace('Feeds')}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Signup')}>

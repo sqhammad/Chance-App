@@ -12,6 +12,7 @@ import InboxScreen from '../screens/InboxScreen';
 import ChatScreen from '../screens/ChatScreen';
 import EventDetails from '../screens/EventDetails';
 import PostDetails from '../screens/PostDetails';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const Stack = createStackNavigator();
 
@@ -20,14 +21,36 @@ const AppNavigator = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Feeds" component={FeedScreen} />
+        <Stack.Screen name="Signup" component={SignupScreen} />
+        <Stack.Screen name="Feeds" component={FeedScreen} options={{
+          headerShown: false,
+          cardStyle: {
+            backgroundColor: "white",
+          },
+        }}
+        />
+        <Stack.Screen name="PostDetails" component={PostDetails} options={{
+          headerShown: false,
+          cardStyle: {
+            backgroundColor: "white",
+          },
+        }} />
+        <Stack.Screen name="EventDetails" component={EventDetails} options={{
+          headerShown: false,
+          cardStyle: {
+            backgroundColor: "white",
+          },
+        }} />
+        <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{
+          headerShown: false,
+          cardStyle: {
+            backgroundColor: "white",
+          },
+        }} />
         <Stack.Screen name="Portfolio" component={PortfolioScreen} />
         <Stack.Screen name="ArtistProfile" component={ArtistProfileScreen} />
-        <Stack.Screen name="Signup" component={SignupScreen} />
         <Stack.Screen name="Inbox" component={InboxScreen} />
         <Stack.Screen name="Chat" component={ChatScreen} />
-        <Stack.Screen name="EventDetails" component={EventDetails} />
-        <Stack.Screen name="PostDetails" component={PostDetails} />
       </Stack.Navigator>
     </NavigationContainer>
   );
