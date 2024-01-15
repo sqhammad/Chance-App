@@ -52,10 +52,10 @@ const SignupScreen = ({ navigation }) => {
   }, []);
   return (
     <LinearGradient
-      colors={['#ffffff', '#ffffff', '#009999']}
+      colors={['#ffff66', '#4dc9ff', '#4dc9ff']}
       style={styles.container}
     >
-      <ScrollView style={{marginVertical:15,}}>
+      <ScrollView style={{ marginTop: 30, }}>
         <Image
           source={logo}
           resizeMode='contain'

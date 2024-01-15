@@ -13,6 +13,7 @@ import ChatScreen from '../screens/ChatScreen';
 import EventDetails from '../screens/EventDetails';
 import PostDetails from '../screens/PostDetails';
 import ProfileScreen from '../screens/ProfileScreen';
+import AddPostScreen from '../screens/AddPostScreen';
 
 const Stack = createStackNavigator();
 
@@ -21,7 +22,7 @@ const AppNavigator = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Signup" component={SignupScreen} />
+        <Stack.Screen name="Signup" component={SignupScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Feeds" component={FeedScreen} options={{
           headerShown: false,
           cardStyle: {
@@ -30,6 +31,12 @@ const AppNavigator = () => {
         }}
         />
         <Stack.Screen name="PostDetails" component={PostDetails} options={{
+          headerShown: false,
+          cardStyle: {
+            backgroundColor: "white",
+          },
+        }} />
+        <Stack.Screen name="AddPostScreen" component={AddPostScreen} options={{
           headerShown: false,
           cardStyle: {
             backgroundColor: "white",

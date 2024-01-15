@@ -2,7 +2,6 @@ import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import { View, Text, Image, StyleSheet, Dimensions, StatusBar, TouchableOpacity, ScrollView } from 'react-native';
-import DocumentPicker from 'react-native-document-picker';
 
 import post1 from '../../assets/posts/post1.jpg';
 
@@ -13,31 +12,6 @@ const ProfileScreen = ({ navigation }) => {
     const skillsList = ['communication', 'acting', 'painting',
         'dancing', 'singing', 'collaborative']
 
-    const [resume, setResume] = React.useState(null);
-
-    const pickDocument = async () => {
-        try {
-          const result = await DocumentPicker.pick({
-            type: [DocumentPicker.types.pdf], // Specify the file types you want to allow (e.g., PDF).
-          });
-    
-          console.log(
-            result.uri,
-            result.type, // mime type
-            result.name,
-            result.size
-          );
-    
-          // You can save the selected document's information or content to state.
-          setResume(result);
-        } catch (err) {
-          if (DocumentPicker.isCancel(err)) {
-            // User canceled the picker
-          } else {
-            throw err;
-          }
-        }
-      };
     return (
         <>
             <StatusBar hidden={false} />
@@ -49,7 +23,7 @@ const ProfileScreen = ({ navigation }) => {
                 <MaterialIcons name='edit' size={35} color="white" />
             </View>
             <LinearGradient
-                colors={['#ffffff', '#00cccc', '#009999']}
+                colors={['#ffff66',  '#4dc9ff', '#4dc9ff']}
                 style={styles.container}
             >
                 <ScrollView style={{ marginBottom: 10, borderRadius: 10 }}>
@@ -58,13 +32,13 @@ const ProfileScreen = ({ navigation }) => {
                         alignItems: "center"
                     }}>
                         <Image source={post1} style={styles.postImage} />
-                        <TouchableOpacity style={styles.btn}>
+                        {/* <TouchableOpacity style={styles.btn}>
                             <Text style={{
                                 textAlign: "center", fontSize: 16,
                                 fontWeight: "bold",
                             }}>
                                 Add Profile Picture</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                     </View>
                     <View style={styles.postContainer}>
                         <Text style={styles.containerText}>Name : Itachi Uchiha</Text>
@@ -102,7 +76,7 @@ const ProfileScreen = ({ navigation }) => {
                             paddingBottom: 5,
                             borderBottomColor: "#009999", borderBottomWidth: 1,
                         }}>
-                            <TouchableOpacity style={styles.btn} onPress={()=>pickDocument()}>
+                            <TouchableOpacity style={styles.btn} onPress={() => pickDocument()}>
                                 <Text style={{ textAlign: "center" }}>Upload Resume / CV</Text>
                             </TouchableOpacity>
                             <Text style={{

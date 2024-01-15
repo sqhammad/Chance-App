@@ -31,7 +31,7 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <LinearGradient
-      colors={['#ffffff', '#ffffff', '#009999']}
+    colors={['#ffff66',  '#4dc9ff', '#4dc9ff']}
       style={styles.container}
     >
       <Image

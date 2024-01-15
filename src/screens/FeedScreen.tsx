@@ -7,6 +7,7 @@ import post1 from '../../assets/posts/post1.jpg';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { LinearGradient } from 'expo-linear-gradient';
 import { AntDesign, Entypo, FontAwesome, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import Toast from 'react-native-toast-message';
 
 
 const screenWidth = Dimensions.get('window').width;
@@ -20,10 +21,10 @@ const carouselImages = [
 ];
 
 const postImages = [
-  { id: '1', artist: 'John Doe', image: event1 },
-  { id: '2', artist: 'John Doe', image: event2 },
-  { id: '3', artist: 'John Doe', image: event3 },
-  { id: '4', artist: 'Itachi Uchiha', image: post1 },
+  { id: '1', artist: 'John Doe', image: event1, profileImage: post1, },
+  { id: '2', artist: 'John Doe', image: event2, profileImage: post1, },
+  { id: '3', artist: 'John Doe', image: event3, profileImage: post1, },
+  { id: '4', artist: 'Itachi Uchiha', image: post1, profileImage: post1, },
 ];
 
 const eventObject = {
@@ -38,6 +39,7 @@ const eventObject = {
 
 const post = {
   imageUrl: post1,
+  profileImage: post1,
   username: 'Itachi',
   caption: 'I am Itachi Uchiha from Naruto!',
   likes: 100,
@@ -61,10 +63,13 @@ const FeedScreen = ({ navigation }) => {
     </TouchableOpacity>
   );
 
-  const renderPostImage = ({ item }: { item: { id: string; artist: string; image: any } }) => (
+  const renderPostImage = ({ item }: { item: { id: string; artist: string; image: any; profileImage: any } }) => (
     <TouchableOpacity onPress={handlePostImagePress}>
       <View style={styles.postContainer}>
-        <Text style={styles.artistName}>{item.artist}</Text>
+        <View style={styles.artistView}>
+          <Image source={item.profileImage} style={{ width: screenWidth * 0.09, aspectRatio: 1, borderRadius: 50 }} resizeMode="contain" />
+          <Text style={styles.artistName}>{item.artist}</Text>
+        </View>
         <Image style={[styles.image, { height: 200 }]} source={item.image} resizeMode="contain" />
         <Text style={styles.caption}>caption</Text>
       </View>
@@ -75,14 +80,15 @@ const FeedScreen = ({ navigation }) => {
     <>
       <StatusBar hidden={false} />
       <View style={styles.header}>
-        <TouchableOpacity onPress={()=>navigation.navigate('ProfileScreen')}>
-        <MaterialIcons name="account-circle" size={37} color="white" />
+        <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen')}>
+          <MaterialIcons name="account-circle" size={37} color="#ffffff" />
         </TouchableOpacity>
         <Text style={styles.headerText}>Home</Text>
-        <MaterialCommunityIcons name='message' size={31} color="white" />
+        <MaterialCommunityIcons name='message' size={31} color="#ffffff" />
       </View>
-      <LinearGradient
-        colors={['#ffffff', '#00cccc', '#009999']}
+      <Toast />
+      <View
+        // color={'#ffffff'}
         style={styles.container}
       >
         <ScrollView>
@@ -93,13 +99,17 @@ const FeedScreen = ({ navigation }) => {
           <FlatList data={postImages} keyExtractor={(item) => item.id}
             renderItem={renderPostImage} style={{ marginTop: 10 }} />
         </ScrollView>
-      </LinearGradient>
+      </View>
       <View style={styles.bottomNav}>
-        <MaterialIcons name="home" size={37} color="#009999" />
-        <AntDesign name="search1" size={32} color="#009999" />
-        <MaterialIcons name="add-circle" size={37} color="#009999" />
-        <MaterialCommunityIcons name="web" size={35} color="#009999" />
-        <Entypo name="menu" size={38} color="#009999" />
+        <MaterialIcons name="home" size={37} color="#ffffff" />
+        <AntDesign name="search1" size={32} color="#ffffff" />
+        <TouchableOpacity onPress={() => navigation.navigate('AddPostScreen')}>
+          <MaterialIcons name="add" size={37} color="#ffffff" />
+        </TouchableOpacity>
+        <MaterialCommunityIcons name="web" size={35} color="#ffffff" />
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+          <Entypo name="menu" size={38} color="#ffffff" />
+        </TouchableOpacity>
       </View>
       {/* </StatusBar> */}
     </>
@@ -111,6 +121,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 0,
     margin: 0,
+    backgroundColor: "#ffffff"
     // height: screenHeight * 0.9
   },
   header: {
@@ -118,7 +129,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "#009999",
+    backgroundColor: "#4dc9ff",
     alignContent: "center",
     alignItems: "center",
     paddingHorizontal: 15,
@@ -126,14 +137,14 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 30,
     fontWeight: "600",
-    color: "white"
+    color: "#ffffff"
   },
   bottomNav: {
     height: screenHeight * 0.065,
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "#ffffff",
+    backgroundColor: "#4dc9ff",
     alignContent: "center",
     alignItems: "center",
     paddingHorizontal: 15,
@@ -161,10 +172,17 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     // borderRadius:10
   },
+  artistView: {
+    flexDirection: "row",
+    alignContent: "center",
+    justifyContent: "center"
+  },
   artistName: {
     margin: 10,
     fontSize: 16,
     fontWeight: 'bold',
+    textAlign: "center",
+    alignSelf: "center"
   },
   caption: {
     margin: 10,
