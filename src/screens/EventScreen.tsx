@@ -4,29 +4,25 @@ import event1 from '../../assets/events/event1.jpg';
 import event2 from '../../assets/events/event2.jpg';
 import event3 from '../../assets/events/event3.jpg';
 import post1 from '../../assets/posts/post1.jpg';
+import paint from '../../assets/eventtype/paint.png';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { LinearGradient } from 'expo-linear-gradient';
 import { AntDesign, Entypo, FontAwesome, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import Toast from 'react-native-toast-message';
 import BottomNavigator from '../navigation/bottomNavigator';
+import EventTypeCarousel from '../carousel/evenTypeCarousel';
 
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 
-// Mock data for carousel images
-const carouselImages = [
-  { id: '1', artist: 'John Doe', image: event1 },
-  { id: '2', artist: 'John Doe', image: event2 },
-  { id: '3', artist: 'John Doe', image: event3 },
+const postImages = [
+  { id: '1', artist: 'John Doe', image: event1, profileImage: post1, },
+  { id: '2', artist: 'John Doe', image: event2, profileImage: post1, },
+  { id: '3', artist: 'John Doe', image: event3, profileImage: post1, },
+  { id: '4', artist: 'Itachi Uchiha', image: event1, profileImage: post1, },
 ];
 
-const postImages = [
-  { id: '1', artist: 'John Doe', image: post1, profileImage: post1, },
-  { id: '2', artist: 'John Doe', image: post1, profileImage: post1, },
-  { id: '3', artist: 'John Doe', image: post1, profileImage: post1, },
-  { id: '4', artist: 'Itachi Uchiha', image: post1, profileImage: post1, },
-];
 
 const eventObject = {
   photos: [event1, event2, event3],
@@ -39,7 +35,7 @@ const eventObject = {
 };
 
 const post = {
-  imageUrl: post1,
+  imageUrl: event1,
   profileImage: post1,
   username: 'Itachi',
   caption: 'I am Itachi Uchiha from Naruto!',
@@ -48,7 +44,7 @@ const post = {
   timestamp: '2023-07-22 12:34 PM',
 };
 
-const FeedScreen = ({ navigation }) => {
+const EventScreen = ({ navigation }) => {
 
   const handleEventImagePress = () => {
     navigation.navigate('EventDetails', { event: eventObject });
@@ -58,10 +54,21 @@ const FeedScreen = ({ navigation }) => {
     navigation.navigate('PostDetails', { post: post });
   };
 
-  const renderEventImage = ({ item }: { item: { id: string; image: any } }) => (
-    <TouchableOpacity onPress={handleEventImagePress}>
-      <Image source={item.image} style={{ width: screenWidth, height: screenHeight * 0.3, }} resizeMode="contain" />
+  const renderCarouselItem = ({ item, index }) => (
+    <View style={styles.carouselDotContainer}>
+      <View style={[styles.carouselDot, index === 0 && styles.activeDot]} />
+    </View>
+  );
+  const EventTypeItem = ({ onPress, image }) => (
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.eventTypeContainer}>
+        <Image source={paint} style={styles.eventTypeImage} resizeMode="contain" />
+      </View>
     </TouchableOpacity>
+  );
+
+  const renderEventType = ({ item }) => (
+    <EventTypeItem onPress={handleEventImagePress} image={item.image} />
   );
 
   const renderPostImage = ({ item }: { item: { id: string; artist: string; image: any; profileImage: any } }) => (
@@ -95,16 +102,20 @@ const FeedScreen = ({ navigation }) => {
         <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen')}>
           <MaterialIcons name="account-circle" size={37} color="#ffffff" />
         </TouchableOpacity>
-        <Text style={styles.headerText}>Feeds</Text>
+        <Text style={styles.headerText}>Event</Text>
         <MaterialCommunityIcons name='message' size={31} color="#ffffff" />
       </View>
       <Toast />
-      <View
-        // color={'#ffffff'}
-        style={styles.container}
-      >
+      <View style={styles.container}>
         <ScrollView>
-
+          <Carousel
+            data={postImages}
+            renderItem={renderEventType}
+            sliderWidth={screenWidth}
+            itemWidth={screenWidth * 0.2}
+            layout="default"
+            loop
+          />
           <FlatList data={postImages} keyExtractor={(item) => item.id}
             renderItem={renderPostImage} style={{ marginTop: 10 }} />
         </ScrollView>
@@ -159,8 +170,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
     maxHeight: screenHeight * 0.7,
+    width: screenWidth,
     backgroundColor: '#000',
-    width: screenWidth
   },
   detailsContainer: {
     padding: 7,
@@ -208,6 +219,49 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     // borderRadius:10
   },
+  carouselDotContainer: {
+    width: 10,
+    height: 10,
+    marginHorizontal: 5,
+  },
+  carouselDot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: '#ccc',
+  },
+  activeDot: {
+    backgroundColor: '#4dc9ff', // Active dot color
+  },
+
+  paginationContainer: {
+    position: 'absolute',
+    bottom: 20,
+    alignSelf: 'center',
+  },
+  paginationDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    marginHorizontal: 8,
+    backgroundColor: '#888', // Inactive dot color
+  },
+  paginationInactiveDot: {
+    backgroundColor: '#ccc', // Inactive dot color
+  },
+  eventTypeContainer: {
+    width: screenWidth * 0.2,
+    aspectRatio: 1,
+    borderRadius: 100,
+    borderWidth: 1,
+    margin: 5,
+  },
+  eventTypeImage: {
+    width: screenWidth * 0.2,
+    aspectRatio: 1,
+    alignSelf: "center",
+    resizeMode: 'contain'
+  },
 });
 
-export default FeedScreen;
+export default EventScreen;

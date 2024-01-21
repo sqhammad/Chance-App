@@ -14,6 +14,7 @@ import EventDetails from '../screens/EventDetails';
 import PostDetails from '../screens/PostDetails';
 import ProfileScreen from '../screens/ProfileScreen';
 import AddPostScreen from '../screens/AddPostScreen';
+import EventScreen from '../screens/EventScreen';
 
 const Stack = createStackNavigator();
 
@@ -43,6 +44,12 @@ const AppNavigator = () => {
           },
         }} />
         <Stack.Screen name="EventDetails" component={EventDetails} options={{
+          headerShown: false,
+          cardStyle: {
+            backgroundColor: "white",
+          },
+        }} />
+        <Stack.Screen name="EventScreen" component={EventScreen} options={{
           headerShown: false,
           cardStyle: {
             backgroundColor: "white",
