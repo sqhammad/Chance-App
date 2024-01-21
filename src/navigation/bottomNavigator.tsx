@@ -17,11 +17,11 @@ export default function BottomNavigator({ navigation }) {
       <TouchableOpacity onPress={() => navigation.navigate('AddPostScreen')}>
         <MaterialIcons name="add" size={37} color="#ffffff" />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('EventScreen')}>
+      <TouchableOpacity onPress={() => navigation.navigate('JobScreen')}>
         <MaterialIcons name="work" size={35} color="#ffffff" />
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-        <Entypo name="menu" size={38} color="#ffffff" />
+      <MaterialIcons name="logout" size={35} color="#ffffff" />
       </TouchableOpacity>
     </View>
   );

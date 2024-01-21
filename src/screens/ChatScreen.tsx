@@ -1,63 +1,77 @@
-import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, FlatList, TextInput, TouchableOpacity, Text } from 'react-native';
+// ChatScreen.js
+import React from 'react';
+import { View, Text, StyleSheet, FlatList, TextInput, TouchableOpacity, Image, Dimensions } from 'react-native';
+import { MaterialIcons, MaterialCommunityIcons, } from '@expo/vector-icons';
 
-interface Message {
-  id: string;
-  sender: string;
-  message: string;
-}
+import directingpost from '../../assets/posts/directing.jpeg';
 
-const ChatScreen = () => {
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [inputMessage, setInputMessage] = useState('');
 
-  useEffect(() => {
-    // Simulating initial messages
-    setMessages([
-      { id: '1', sender: 'John Doe', message: 'Hello, how are you?' },
-      { id: '2', sender: 'Jane Smith', message: 'I\'m good. How about you?' },
-      { id: '3', sender: 'John Doe', message: 'I\'m doing great!' },
-    ]);
-  }, []);
+const screenHeight = Dimensions.get('window').height;
+const screenWidth = Dimensions.get('window').width;
+
+const ChatScreen = ({ navigation, route }) => {
+  const { chat } = route.params;
+  const [inputMessage, setInputMessage] = React.useState('');
+  const [messages, setMessages] = React.useState([
+    { id: '1', text: 'Hi there!', sender: 'John Doe', senderId: 1 },
+    { id: '2', text: 'Hello!', sender: 'John Doe', senderId: 4 },
+    { id: '3', text: 'How are you?', sender: 'John Doe', senderId: 1 },
+    { id: '4', text: 'I am Good, thanks for asking.', sender: 'John Doe', senderId: 4 },
+    { id: '5', text: 'And you?', sender: 'John Doe', senderId: 4 },
+    { id: '6', text: 'Thanks, doing great.', sender: 'John Doe', senderId: 1 },
+  ]);
 
   const sendMessage = () => {
-    if (inputMessage.trim() === '') {
-      return;
+    if (inputMessage.trim() !== '') {
+      const newMessage = { id: String(messages.length + 1), text: inputMessage, sender: chat.username, senderId: 4 };
+      setMessages([...messages, newMessage]);
+      setInputMessage('');
     }
-
-    const newMessage: Message = {
-      id: String(messages.length + 1),
-      sender: 'John Doe', // Replace with current user's name
-      message: inputMessage.trim(),
-    };
-
-    setMessages((prevMessages) => [...prevMessages, newMessage]);
-    setInputMessage('');
   };
 
-  const renderMessage = ({ item }: { item: Message }) => (
-    <View style={styles.messageContainer}>
-      <Text style={styles.sender}>{item.sender}</Text>
-      <Text style={styles.message}>{item.message}</Text>
+  const renderItem = ({ item }) => (
+    <View style={item.senderId == 4 ? styles.sentMessage : styles.receivedMessage}>
+      {item.senderId == 4 ? (
+        <Image source={directingpost}
+          style={{ width: screenWidth * 0.09, aspectRatio: 1, borderRadius: 50, }}
+          resizeMode="contain" />
+      ) : (
+        <Image source={chat.image}
+          style={{ width: screenWidth * 0.09, aspectRatio: 1, borderRadius: 50, }}
+          resizeMode="contain" />
+      )}
+      <Text style={styles.messageText}>{item.text}</Text>
     </View>
   );
 
+
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <MaterialIcons name="arrow-back" size={35} color="white" />
+        </TouchableOpacity>
+        <Text style={styles.headerText}>Messages</Text>
+        {/* <TouchableOpacity onPress={() => navigation.navigate('UserMessagesScreen')}> */}
+        <Image source={chat.image}
+          style={{ width: screenWidth * 0.1, aspectRatio: 1, borderRadius: 50, }}
+          resizeMode="contain" />
+        {/* </TouchableOpacity> */}
+      </View>
       <FlatList
         data={messages}
         keyExtractor={(item) => item.id}
-        renderItem={renderMessage}
-        contentContainerStyle={styles.messagesContainer}
-        inverted
+        renderItem={renderItem}
+        style={styles.messageList}
+        contentContainerStyle={styles.messageListContent}
+        inverted  // to display messages from bottom to top
       />
       <View style={styles.inputContainer}>
         <TextInput
-          style={styles.input}
+          style={styles.inputField}
+          placeholder="Type your message..."
           value={inputMessage}
-          onChangeText={setInputMessage}
-          placeholder="Type a message..."
-          multiline
+          onChangeText={(text) => setInputMessage(text)}
         />
         <TouchableOpacity style={styles.sendButton} onPress={sendMessage}>
           <Text style={styles.sendButtonText}>Send</Text>
@@ -70,49 +84,79 @@ const ChatScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  header: {
+    height: screenHeight * 0.07,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: "#4dc9ff",
+    alignContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 15,
+  },
+  headerText: {
+    fontSize: 30,
+    fontWeight: "600",
+    color: "white"
+  },
+  messageList: {
+    flex: 1,
+  },
+  messageListContent: {
     padding: 10,
   },
-  messagesContainer: {
-    flexGrow: 1,
-    justifyContent: 'flex-end',
-  },
-  messageContainer: {
+  receivedMessage: {
+    flexDirection: 'row',
+    backgroundColor: '#e0e0e0',
+    paddingVertical: 10,
+    paddingHorizontal:15,
+    borderRadius: 50,
+    maxWidth: '80%',
     marginBottom: 10,
-    padding: 10,
-    backgroundColor: '#f5f5f5',
-    borderRadius: 10,
+    alignItems: 'center'
   },
-  sender: {
+  sentMessage: {
+    flexDirection: 'row-reverse',
+    backgroundColor: '#4dc9ff',
+    paddingVertical: 10,
+    paddingHorizontal:15,
+    borderRadius: 50,
+    maxWidth: '80%',
+    alignSelf: 'flex-end',
+    marginBottom: 10,
+    alignItems: 'center'
+  },
+  messageText: {
     fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 5,
-  },
-  message: {
-    fontSize: 14,
+    color: '#000',
+    marginHorizontal: 5
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  input: {
-    flex: 1,
-    height: 40,
+    justifyContent: 'space-between',
     padding: 10,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 10,
-    marginRight: 10,
+    borderTopWidth: 1,
+    borderTopColor: '#ccc',
+  },
+  inputField: {
+    flex: 1,
+    height: 50,
+    paddingHorizontal: 20,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 50,
   },
   sendButton: {
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    backgroundColor: 'blue',
-    borderRadius: 10,
+    marginLeft: 10,
+    backgroundColor: '#4dc9ff',
+    padding: 10,
+    borderRadius: 50,
   },
   sendButtonText: {
-    color: 'white',
-    fontSize: 16,
+    color: '#fff',
     fontWeight: 'bold',
+    fontSize: 16,
   },
 });
 

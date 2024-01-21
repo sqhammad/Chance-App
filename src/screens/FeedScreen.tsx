@@ -9,17 +9,11 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { AntDesign, Entypo, FontAwesome, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import Toast from 'react-native-toast-message';
 import BottomNavigator from '../navigation/bottomNavigator';
+import TopNavigation from '../navigation/topNavigation';
 
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
-
-// Mock data for carousel images
-const carouselImages = [
-  { id: '1', artist: 'John Doe', image: event1 },
-  { id: '2', artist: 'John Doe', image: event2 },
-  { id: '3', artist: 'John Doe', image: event3 },
-];
 
 const postImages = [
   { id: '1', artist: 'John Doe', image: post1, profileImage: post1, },
@@ -58,12 +52,6 @@ const FeedScreen = ({ navigation }) => {
     navigation.navigate('PostDetails', { post: post });
   };
 
-  const renderEventImage = ({ item }: { item: { id: string; image: any } }) => (
-    <TouchableOpacity onPress={handleEventImagePress}>
-      <Image source={item.image} style={{ width: screenWidth, height: screenHeight * 0.3, }} resizeMode="contain" />
-    </TouchableOpacity>
-  );
-
   const renderPostImage = ({ item }: { item: { id: string; artist: string; image: any; profileImage: any } }) => (
     <TouchableOpacity onPress={handlePostImagePress}>
       <View style={styles.postContainer}>
@@ -91,13 +79,7 @@ const FeedScreen = ({ navigation }) => {
   return (
     <>
       <StatusBar hidden={false} />
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen')}>
-          <MaterialIcons name="account-circle" size={37} color="#ffffff" />
-        </TouchableOpacity>
-        <Text style={styles.headerText}>Feeds</Text>
-        <MaterialCommunityIcons name='message' size={31} color="#ffffff" />
-      </View>
+      <TopNavigation navigation={navigation} heading={'Feeds'} isGoBack={false} />
       <Toast />
       <View
         // color={'#ffffff'}

@@ -4,27 +4,15 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, Dimensions, StatusBar, TouchableOpacity, ScrollView } from 'react-native';
 import TopNavigation from '../navigation/topNavigation';
 
-interface PostDetailsProps {
-    post: {
-        imageUrl: string;
-        profileImage: string,
-        username: string;
-        caption: string;
-        likes: number;
-        comments: number;
-        timestamp: string;
-    };
-}
-
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
-const PostDetails = ({ navigation, route }) => {
+const JobDetails = ({ navigation, route }) => {
     const { post } = route.params;
     return (
         <>
             <StatusBar hidden={false} />
-            <TopNavigation navigation={navigation} heading={'Event'} isGoBack={true} />
+            <TopNavigation navigation={navigation} heading={'Job'} isGoBack={true} />
             <LinearGradient
                 colors={['#ffffff', '#fff']}
                 style={styles.container}
@@ -37,7 +25,7 @@ const PostDetails = ({ navigation, route }) => {
                         </View>
                         <View style={styles.detailsContainer}>
                             <View style={styles.likesCommentsContainer}>
-                                <Text style={{ fontSize: 20, fontWeight: 'bold', margin: 5 }}>Event Name : {post.event_name}</Text>
+                                <Text style={{ fontSize: 20, fontWeight: 'bold', margin: 5 }}>Job Position : {post.job_title}</Text>
                             </View>
                         </View>
                         <View style={{ maxHeight: screenHeight * 0.8, backgroundColor: '#000' }}>
@@ -48,11 +36,12 @@ const PostDetails = ({ navigation, route }) => {
                             <MaterialCommunityIcons name='forwardburger' size={35} color="black" style={{ marginHorizontal: 5 }} />
                         </View>
                         <View style={styles.detailsContainer}>
-                            <Text style={styles.caption}>Event Charges : {post.event_charges}</Text>
-                            <Text style={styles.timestamp}>Event Time : {post.event_datetime}</Text>
+                            <Text style={styles.caption}>Job Pay : {post.job_pay}</Text>
+                            <Text style={styles.timestamp}>Job Shift : {post.job_shift}</Text>
+                            <Text style={styles.timestamp}>Job Time : {post.job_duration}</Text>
                             <View style={styles.likesCommentsContainer}>
-                                <Text style={[styles.comments]}>Event Description :</Text>
-                                <Text style={{ fontSize: 16 }}>{post.event_desc}</Text>
+                                <Text style={[styles.comments]}>Job Description :</Text>
+                                <Text style={{ fontSize: 16 }}>{post.job_desc}</Text>
                             </View>
                         </View>
                     </View>
@@ -68,6 +57,21 @@ const styles = StyleSheet.create({
         margin: 0,
         padding: 0,
         // justifyContent: "center"
+    },
+    header: {
+        height: screenHeight * 0.07,
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        backgroundColor: "#4dc9ff",
+        alignContent: "center",
+        alignItems: "center",
+        paddingHorizontal: 15,
+    },
+    headerText: {
+        fontSize: 30,
+        fontWeight: "600",
+        color: "white"
     },
     postContainer: {
         backgroundColor: "rgb(255,255,255)",
@@ -122,4 +126,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default PostDetails;
+export default JobDetails;

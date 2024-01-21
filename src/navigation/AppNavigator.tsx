@@ -15,6 +15,9 @@ import PostDetails from '../screens/PostDetails';
 import ProfileScreen from '../screens/ProfileScreen';
 import AddPostScreen from '../screens/AddPostScreen';
 import EventScreen from '../screens/EventScreen';
+import JobScreen from '../screens/JobScreen';
+import JobDetails from '../screens/JobDetails';
+import UserMessagesScreen from '../screens/UserMessages';
 
 const Stack = createStackNavigator();
 
@@ -49,13 +52,37 @@ const AppNavigator = () => {
             backgroundColor: "white",
           },
         }} />
+        <Stack.Screen name="JobDetails" component={JobDetails} options={{
+          headerShown: false,
+          cardStyle: {
+            backgroundColor: "white",
+          },
+        }} />
         <Stack.Screen name="EventScreen" component={EventScreen} options={{
           headerShown: false,
           cardStyle: {
             backgroundColor: "white",
           },
         }} />
+        <Stack.Screen name="JobScreen" component={JobScreen} options={{
+          headerShown: false,
+          cardStyle: {
+            backgroundColor: "white",
+          },
+        }} />
         <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{
+          headerShown: false,
+          cardStyle: {
+            backgroundColor: "white",
+          },
+        }} />
+        <Stack.Screen name="UserMessagesScreen" component={UserMessagesScreen} options={{
+          headerShown: false,
+          cardStyle: {
+            backgroundColor: "white",
+          },
+        }} />
+        <Stack.Screen name="ChatScreen" component={ChatScreen} options={{
           headerShown: false,
           cardStyle: {
             backgroundColor: "white",

@@ -1,16 +1,20 @@
 import React from 'react';
 import { View, StyleSheet, Image, FlatList, Text, Dimensions, TouchableOpacity, ScrollView, StatusBar } from 'react-native';
-import event1 from '../../assets/events/event1.jpg';
-import event2 from '../../assets/events/event2.jpg';
-import event3 from '../../assets/events/event3.jpg';
-import eventsinging from '../../assets/events/eventsinging.jpg';
-import post1 from '../../assets/posts/post1.jpg';
-import paint from '../../assets/eventtype/paint.png';
+
 import { LinearGradient } from 'expo-linear-gradient';
 import { AntDesign, Entypo, FontAwesome, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import Toast from 'react-native-toast-message';
 import BottomNavigator from '../navigation/bottomNavigator';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
+
+import event1 from '../../assets/events/event1.jpg';
+import event2 from '../../assets/events/event2.jpg';
+import eventsinging from '../../assets/events/eventsinging.jpg';
+import post1 from '../../assets/posts/post1.jpg';
+import paint from '../../assets/eventtype/paint.png';
+import actorjob from '../../assets/job/actor.jpg';
+import modelingjob from '../../assets/job/modeling.jpg';
+import singingjob from '../../assets/job/singing.jpeg';
 import TopNavigation from '../navigation/topNavigation';
 
 
@@ -19,39 +23,35 @@ const screenHeight = Dimensions.get('window').height;
 
 const postImages = [
   {
-    id: '1', artist: 'John Doe', image: eventsinging, profileImage: post1, event_name: 'Sample Event',
-    event_desc: 'Atoms of radioactive elements can split. According to Albert Einstein, mass and energy are interchangeable under certain circumstances. When atoms split, the process is called nuclear fission. In this case, a small amount of mass is converted into energy. Thus the energy released cannot do much damage. However, several subatomic particles called neutrons are also emitted during this process. Each neutron will hit a radioactive element releasing more neutrons in the process. This causes a chain reaction and creates a large amount of energy. This energy is converted into heat which expands uncontrollably causing an explosion. Hence, atoms do not literally explode. They generate energy that can cause explosions.',
-    event_link: 'Sample Venue',
-    event_datetime: '2023-07-30 18:00',
-    event_charges: '$20',
+    id: '1', artist: 'John Doe', image: actorjob, profileImage: post1,
+    job_title: 'Actor',
+    job_desc: 'Atoms of radioactive elements can split. According to Albert Einstein, mass and energy are interchangeable under certain circumstances. When atoms split, the process is called nuclear fission. In this case, a small amount of mass is converted into energy. ',
+    job_shift: 'Morning',
+    job_duration: '2023-07-30 18:00',
+    job_pay: '$20',
   },
   {
-    id: '2', artist: 'John Doe', image: event1, profileImage: post1, event_name: 'Sample Event',
-    event_desc: 'Atoms of radioactive elements can split. According to Albert Einstein, mass and energy are interchangeable under certain circumstances. When atoms split, the process is called nuclear fission. In this case, a small amount of mass is converted into energy. Thus the energy released cannot do much damage. However, several subatomic particles called neutrons are also emitted during this process. Each neutron will hit a radioactive element releasing more neutrons in the process. This causes a chain reaction and creates a large amount of energy. This energy is converted into heat which expands uncontrollably causing an explosion. Hence, atoms do not literally explode. They generate energy that can cause explosions.',
-    event_link: 'Sample Venue',
-    event_datetime: '2023-07-30 18:00',
-    event_charges: '$20',
+    id: '2', artist: 'John Doe', image: modelingjob, profileImage: post1,
+    job_title: 'Model',
+    job_desc: 'Atoms of radioactive elements can split. According to Albert Einstein, mass and energy are interchangeable under certain circumstances. When atoms split, the process is called nuclear fission. In this case, a small amount of mass is converted into energy. ',
+    job_shift: 'Morning',
+    job_duration: '2023-07-30 18:00',
+    job_pay: '$20',
   },
   {
-    id: '3', artist: 'John Doe', image: event2, profileImage: post1, event_name: 'Sample Event',
-    event_desc: 'Atoms of radioactive elements can split. According to Albert Einstein, mass and energy are interchangeable under certain circumstances. When atoms split, the process is called nuclear fission. In this case, a small amount of mass is converted into energy. Thus the energy released cannot do much damage. However, several subatomic particles called neutrons are also emitted during this process. Each neutron will hit a radioactive element releasing more neutrons in the process. This causes a chain reaction and creates a large amount of energy. This energy is converted into heat which expands uncontrollably causing an explosion. Hence, atoms do not literally explode. They generate energy that can cause explosions.',
-    event_link: 'Sample Venue',
-    event_datetime: '2023-07-30 18:00',
-    event_charges: '$20',
-  },
-  {
-    id: '4', artist: 'Itachi Uchiha', image: event3, profileImage: post1, event_name: 'Sample Event',
-    event_desc: 'Atoms of radioactive elements can split. According to Albert Einstein, mass and energy are interchangeable under certain circumstances. When atoms split, the process is called nuclear fission. In this case, a small amount of mass is converted into energy. Thus the energy released cannot do much damage. However, several subatomic particles called neutrons are also emitted during this process. Each neutron will hit a radioactive element releasing more neutrons in the process. This causes a chain reaction and creates a large amount of energy. This energy is converted into heat which expands uncontrollably causing an explosion. Hence, atoms do not literally explode. They generate energy that can cause explosions.',
-    event_link: 'Sample Venue',
-    event_datetime: '2023-07-30 18:00',
-    event_charges: '$20',
+    id: '3', artist: 'John Doe', image: singingjob, profileImage: post1,
+    job_title: 'Singer',
+    job_desc: 'Atoms of radioactive elements can split. According to Albert Einstein, mass and energy are interchangeable under certain circumstances. When atoms split, the process is called nuclear fission. In this case, a small amount of mass is converted into energy. ',
+    job_shift: 'Morning',
+    job_duration: '2023-07-30 18:00',
+    job_pay: '$20',
   },
 ];
 
 
 
 const eventObject = {
-  photos: [event1, event2, event3],
+  photos: [actorjob, modelingjob, singingjob],
   event_name: 'Sample Event',
   event_desc: 'Atoms of radioactive elements can split. According to Albert Einstein, mass and energy are interchangeable under certain circumstances. When atoms split, the process is called nuclear fission. In this case, a small amount of mass is converted into energy. Thus the energy released cannot do much damage. However, several subatomic particles called neutrons are also emitted during this process. Each neutron will hit a radioactive element releasing more neutrons in the process. This causes a chain reaction and creates a large amount of energy. This energy is converted into heat which expands uncontrollably causing an explosion. Hence, atoms do not literally explode. They generate energy that can cause explosions.',
   event_link: 'Sample Venue',
@@ -60,7 +60,7 @@ const eventObject = {
 };
 
 const post = {
-  imageUrl: event1,
+  imageUrl: actorjob,
   profileImage: post1,
   username: 'Itachi',
   caption: 'I am Itachi Uchiha from Naruto!',
@@ -69,14 +69,14 @@ const post = {
   timestamp: '2023-07-22 12:34 PM',
 };
 
-const EventScreen = ({ navigation }) => {
+const JobScreen = ({ navigation }) => {
 
   const handleEventImagePress = () => {
     navigation.navigate('EventDetails', { event: eventObject });
   };
 
   const handlePostImagePress = (item) => {
-    navigation.navigate('EventDetails', { post: item });
+    navigation.navigate('JobDetails', { post: item });
   };
 
 
@@ -109,10 +109,10 @@ const EventScreen = ({ navigation }) => {
         </View>
         <View style={styles.detailsContainer}>
           <View style={styles.likesCommentsContainer}>
-            <Text style={styles.comments}>Event Name : {item.event_name}</Text>
+            <Text style={styles.comments}>Job Position : {item.job_title}</Text>
           </View>
-          <Text style={styles.caption}>Event Charges : {item.event_charges}</Text>
-          <Text style={styles.timestamp}>Event Time : {item.event_datetime}</Text>
+          <Text style={styles.caption}>Job Pay : {item.job_pay}</Text>
+          <Text style={styles.timestamp}>Job Shift : {item.job_shift}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -121,7 +121,7 @@ const EventScreen = ({ navigation }) => {
   return (
     <>
       <StatusBar hidden={false} />
-      <TopNavigation navigation={navigation} heading={'Events'} isGoBack={false} />
+      <TopNavigation navigation={navigation} heading={'Jobs'} isGoBack={false} />
       <Toast />
       <View style={styles.container}>
         <ScrollView>
@@ -233,4 +233,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EventScreen;
+export default JobScreen;

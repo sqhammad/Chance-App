@@ -48,12 +48,12 @@ const ProfileScreen = ({ navigation }) => {
                             Skills :</Text>
                         <View style={{
                             paddingBottom: 5,
-                            borderBottomColor: "#009999", borderBottomWidth: 1,
+                            borderBottomColor: "#4dc9ff", borderBottomWidth: 1,
                         }}>
                             {skillsList.length > 0 ? (
                                 <View style={{
                                     display: "flex", flexDirection: "row", flexWrap: "wrap",
-                                    paddingVertical: 7, backgroundColor: "rgba(0,153,153, 0.3)",
+                                    paddingVertical: 7, backgroundColor: "rgba(77,201, 255, 0.3)",
                                     alignContent: "center", borderRadius: 10, alignSelf: "center",
                                     paddingHorizontal: 2, marginVertical: 10
                                 }}>
@@ -61,8 +61,8 @@ const ProfileScreen = ({ navigation }) => {
                                         <Text style={{
                                             margin: 4, paddingVertical: 2, paddingHorizontal: 7,
                                             textAlign: "center", borderRadius: 50,
-                                            borderColor: "rgba(0,153,153,0.7)", borderWidth: 1.2,
-                                            backgroundColor: "rgba(0,153,153,0.4)",
+                                            borderColor: "rgba(77,201, 255,0.7)", borderWidth: 1.2,
+                                            backgroundColor: "rgba(77,201, 255,0.3)",
                                         }}>{skill}</Text>
                                     ))}
                                 </View>
@@ -74,7 +74,7 @@ const ProfileScreen = ({ navigation }) => {
                             Resume / CV :</Text>
                         <View style={{
                             paddingBottom: 5,
-                            borderBottomColor: "#009999", borderBottomWidth: 1,
+                            borderBottomColor: "#4dc9ff", borderBottomWidth: 1,
                         }}>
                             <TouchableOpacity style={styles.btn} onPress={() => pickDocument()}>
                                 <Text style={{ textAlign: "center" }}>Upload Resume / CV</Text>
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
-        backgroundColor: "#009999",
+        backgroundColor: "#4dc9ff",
         alignContent: "center",
         alignItems: "center",
         paddingHorizontal: 15,
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     containerText: {
         fontSize: 17,
         marginTop: 10, paddingVertical: 5,
-        borderBottomColor: "#009999", borderBottomWidth: 1,
+        borderBottomColor: "#4dc9ff", borderBottomWidth: 1,
     },
     postImage: {
         height: screenHeight * 0.2,
@@ -151,8 +151,8 @@ const styles = StyleSheet.create({
     },
     btn: {
         margin: 5, marginTop: 10, paddingHorizontal: 10, paddingVertical: 5,
-        borderColor: "rgba(0,153,153,0.7)", borderWidth: 1.2,
-        backgroundColor: "rgba(0,153,153,0.4)", borderRadius: 10, width: 160,
+        borderColor: "rgba(77,201, 255,0.7)", borderWidth: 1.2,
+        backgroundColor: "rgba(77,201, 255,0.4)", borderRadius: 10, width: 160,
     },
     caption: {
         fontSize: 16,
